@@ -1,0 +1,46 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../../src/common/adapter/pages/page.js"
+    ],
+    "names": [
+        "init",
+        "http",
+        "pages",
+        "pagerData",
+        "think",
+        "pagerHtml",
+        "totalPages",
+        "pageUrl",
+        "url",
+        "htmlMaps",
+        "escape_html",
+        "str",
+        "replace",
+        "a",
+        "prefix",
+        "querys",
+        "name",
+        "query",
+        "push",
+        "join",
+        "length",
+        "hideDesc",
+        "count",
+        "currentPage",
+        "num",
+        "numsPerPage",
+        "pageIndex",
+        "page",
+        "i",
+        "p",
+        "last",
+        "adapter",
+        "base"
+    ],
+    "mappings": "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",
+    "file": "../../../../src/common/adapter/pages/page.js",
+    "sourcesContent": [
+        "'use strict';\n/**\n * base adapter\n */\n    /*\n    let data = await this.model('user').where(map).page(this.get('page')).countSelect();//查询数据库\n    let Pages = think.adapter(\"pages\", \"page\"); //加载名为 page 的 pages Adapter\n    let pages = new Pages(); //实例化 Adapter\n    let page = pages.pages(data);//传入数据库查询返回的数据集\n    this.assign('list', data.data);//输出到模板\n*/\nexport default class extends think.adapter.base {\n  /**\n   * init\n   * @return {[]}         []\n   */\n  init(http){\n    super.init(http);\n  }\n\n  /**\n   *\n   * @param pagerData\n   * @returns {*}\n   */\n  pages(pagerData){\n    let http = think.http;\n    let pagerHtml;\n    if(pagerData.totalPages > 1){\n\n      var pageUrl = pagerData.url;\n      if(!pageUrl){\n        var htmlMaps = {\n          '<': '<',\n          '>': '>',\n          '\"': '\"e;',\n          \"'\": \"'\"\n        }\n        var escape_html = function (str) {\n          return (str + \"\").replace(/[<>'\"]/g, function(a){\n            return htmlMaps[a];\n          })\n        }\n        //var prefix = \"?\";\n        var prefix = \"?\";\n        var querys = [];\n        for(var name in http.query){\n          if(name == 'page') continue;\n          querys.push(escape_html(name) + '=' + escape_html(http.query[name]));\n        }\n        prefix += querys.join(\"&\");\n        if(querys.length){\n          prefix += \"&\";\n        }\n        pageUrl = prefix + \"page=${page}\";\n      }\n\n      pagerHtml='<div class=\"btn-group m-t-none m-b-none\">';\n      if(!pagerData.hideDesc){\n        pagerHtml += `<a class=\"disabled btn btn-default\"><span>共有${pagerData.count}条记录，共${pagerData.totalPages}页</span></a>`\n      }\n      if(pagerData.currentPage > 1){\n        pagerHtml += `<a class=\"prev btn btn-default\" href=\"${pageUrl.replace('${page}', pagerData.currentPage - 1)}\">上一页</a>`\n      }\n\n      var num = pagerData.numsPerPage || 3;\n      var pageIndex = [];\n      var page = pagerData.currentPage | 0 || 1;\n      for (var i = page - num; i <= page + num; i++) {\n        if (i >= 1 && i <= pagerData.totalPages) {\n          pageIndex.push(i);\n        };\n      }\n\n      if(pageIndex[0] > 1){\n        pagerHtml += `<a  class=\"btn btn-default\"  href=\"${pageUrl.replace('${page}', 1)}\">1</a>`\n      }\n      if(pageIndex[0] > 2){\n        pagerHtml += `<a class=\"disabled btn btn-default\"><span>...</span></a>`\n      }\n\n      for (var i = 0, length = pageIndex.length; i < length; i++) {\n        var p = pageIndex[i];\n        if (p == page) {\n          pagerHtml += `<a class=\"active btn btn-default\" href=\"${pageUrl.replace('${page}', p)}\"> ${p} </a>`\n        } else {\n          pagerHtml += `<a class=\"btn btn-default\" href=\"${pageUrl.replace('${page}', p)}\">${p}</a>`\n        }\n      }\n\n\n      if (pageIndex.length > 1) {\n        var last = pageIndex[pageIndex.length - 1];\n        if (last < (pagerData.totalPages - 1)) {\n          pagerHtml += `<a class=\"disabled btn btn-default\"><span>...</span></a>`\n        };\n        if (last < pagerData.totalPages) {\n          pagerHtml += `<a class=\"btn btn-default\" href=\"${pageUrl.replace('${page}', pagerData.totalPages)}\">${pagerData.totalPages}</a>`\n        };\n      };\n\n      if (page < pagerData.totalPages) {\n        pagerHtml += `<a  class=\"next btn btn-default\" href=\"${pageUrl.replace('${page}', pagerData.currentPage + 1)}\">下一页</a>`\n      };\n      pagerHtml +=`</div>`\n      return pagerHtml\n    }\n\n  }\n}"
+    ]
+}

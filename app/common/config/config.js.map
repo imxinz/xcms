@@ -1,0 +1,18 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/common/config/config.js"
+    ],
+    "names": [
+        "port",
+        "default_module",
+        "route_on",
+        "resource_on",
+        "resource_reg"
+    ],
+    "mappings": "AAAA;AACA;;;;;kBAGe;AACb;AACEA,QAAO,IAFI;AAGXC,kBAAiB,OAHN;AAIXC,YAAU,IAJC;AAKXC,eAAa,IALF;AAMXC,gBAAc;AANH,C",
+    "file": "../../../src/common/config/config.js",
+    "sourcesContent": [
+        "'use strict';\n/**\n * config\n */\nexport default {\n  //key: value\n    port : 8361,\n    default_module : 'admin',\n    route_on: true,\n    resource_on: true,\n    resource_reg: /^(upload\\/|backup\\/|static\\/|[^\\/]+\\.(?!js|html)\\w+$)/,\n    /* 文档模型配置 (文档模型核心配置，请勿更改) */\n};"
+    ]
+}

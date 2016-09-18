@@ -1,0 +1,51 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/admin/model/model.js"
+    ],
+    "names": [
+        "del",
+        "id",
+        "table_name",
+        "field",
+        "find",
+        "model",
+        "console",
+        "log",
+        "extend",
+        "think",
+        "config",
+        "prefix",
+        "name",
+        "toLowerCase",
+        "delete",
+        "sql",
+        "query",
+        "istable",
+        "isEmpty",
+        "execute",
+        "res",
+        "checkName",
+        "map",
+        "where",
+        "get_table_name",
+        "model_id",
+        "info",
+        "replace",
+        "get_document_model",
+        "cache",
+        "_get_document_model",
+        "timeout",
+        "list",
+        "lists",
+        "select",
+        "v",
+        "getmodel",
+        "base"
+    ],
+    "mappings": "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",
+    "file": "../../../src/admin/model/model.js",
+    "sourcesContent": [
+        "'use strict';\n/**\n * model\n */\nexport default class extends think.model.base {\n    /**\n     * 删除数据\n     */\n    async del(id){\n        let table_name;\n        let model =await this.field('name,extend').find(id);\n        console.log(model);\n        if(model.extend == 0){\n            table_name = think.config('db').prefix+model.name.toLowerCase();\n        }else if(model.extend == 1){\n            table_name = think.config('db').prefix+'document_'+model.name.toLowerCase();\n        }else {\n            //think.fail(\"只支持删除文档模型和独立模型\");\n            return false;\n        }\n        //console.log(table_name);\n        //删除属性数据\n        // this.model('attribute').where({model_id:id}).delete();\n        //删除模型数据\n        this.delete(id);\n        let sql =`SHOW TABLES LIKE '${table_name}'`;\n        let istable =  await think.model('mysql',think.config('db')).query(sql);\n        if(!think.isEmpty(istable)){\n            sql = `DROP TABLE ${table_name}`;\n            let res = await think.model('mysql', think.config('db')).execute(sql);\n        }\n\n        return true;\n    }\n    /**\n     * 检查是否有相同的表名\n     * @param name 要验证的字段名称\n     * @param model_id 要验证的字段的模型id\n     * @author\n     */\n    async checkName(name,id){\n        let map = {'name':name};\n        if(!think.isEmpty(id)){\n            map.id = [\"!=\", id];\n        }\n        let res = await this.where(map).find();\n        return think.isEmpty(res);\n    }\n    /**\n     * 获取表名（不含表前缀）\n     * @param string $model_id\n     * @return string 表名\n     *\n     */\n    async get_table_name(model_id){\n        model_id=model_id||null;\n        if(think.isEmpty(model_id)){\n            return false;\n        }\n        let name;\n        let info = await this.where({id:model_id}).find();\n        if(info.extend != 0){\n            name = await this.where({id:info.extend}).find();\n            name = name.name+'_'\n        }\n        name += info.name;\n        return name.replace(/undefined/, \"\");\n    }\n    /**\n     * 获取文档模型信息并缓存\n     * @param  integer id    模型ID\n     * @param  string  field 模型字段\n     * @return array\n     */\n\n    async get_document_model(id, field){\n        id=id||null,field=field||null;\n        /* 非法分类ID */\n        //if(!(think.isNumberString(id) || think.isNumber(id))){\n        //    return '555';\n        //}\n\n        /* 读取缓存数据 */\n        let list = await think.cache(\"get_document_model\", () => {\n            return this._get_document_model();\n        }, {timeout: 365 * 24 * 3600});\n\n\n        /* 根据条件返回数据 */\n        if(think.isEmpty(id)){\n            return list;\n        } else if(think.isEmpty(field)){\n            return list[id];\n        } else {\n            return list[id][field];\n        }\n    }\n    /* 获取模型名称 */\n    async _get_document_model(){\n        let lists = {}\n        let map   = {'status' : 1, 'extend': 1};\n        let model = await this.where(map).select();\n        for(let v of model){\n            lists[v.id] = v\n        }\n        return lists;\n    }\n    getmodel(id){\n        return id;\n    }\n\n\n}"
+    ]
+}

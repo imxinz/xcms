@@ -1,0 +1,35 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/common/bootstrap/global.js"
+    ],
+    "names": [
+        "global",
+        "in_array",
+        "stringToSearch",
+        "arrayToSearch",
+        "s",
+        "length",
+        "thisEntry",
+        "toString",
+        "parse_config_attr",
+        "str",
+        "strs",
+        "undefined",
+        "search",
+        "split",
+        "think",
+        "isArray",
+        "obj",
+        "forEach",
+        "n",
+        "get_attribute_type",
+        "type",
+        "_type"
+    ],
+    "mappings": ";;;;;;;;AAAA;;;;;AAKA;;;;;;;;AAQA;;;;;;AAMA;AACAA,OAAOC,QAAP,GAAkB,UAASC,cAAT,EAAyBC,aAAzB,EAAwC;AACtD,SAAK,IAAIC,IAAI,CAAb,EAAgBA,IAAID,cAAcE,MAAlC,EAA0CD,GAA1C,EAA+C;AAC3C,YAAIE,YAAYH,cAAcC,CAAd,EAAiBG,QAAjB,EAAhB;AACA,YAAID,aAAaJ,cAAjB,EAAiC;AAC7B,mBAAO,IAAP;AACH;AACJ;AACD,WAAO,KAAP;AACH,CARD;;AAWA;;;;;AAKA;AACAF,OAAOQ,iBAAP,GAA2B,UAASC,GAAT,EAAc;AACrC,QAAIC,aAAJ;AACA,QAAGD,OAAOE,SAAV,EAAoB;AAAE,eAAO,IAAP;AAAc;AACpC,QAAIF,IAAIG,MAAJ,CAAW,QAAX,IAAuB,CAAC,CAA5B,EAA+B;AAC3BF,eAAOD,IAAII,KAAJ,CAAU,MAAV,CAAP;AACH,KAFD,MAEO,IAAIJ,IAAIG,MAAJ,CAAW,KAAX,IAAoB,CAAC,CAAzB,EAA4B;AAC/BF,eAAOD,IAAII,KAAJ,CAAU,GAAV,CAAP;AACH,KAFM,MAEA,IAAGJ,IAAIG,MAAJ,CAAW,MAAX,IAAqB,CAAC,CAAzB,EAA2B;AAC9BF,eAAOD,IAAII,KAAJ,CAAU,IAAV,CAAP;AACH,KAFM,MAED;AACFH,eAAO,CAACD,GAAD,CAAP;AACH;AACD,QAAIK,MAAMC,OAAN,CAAcL,IAAd,CAAJ,EAAyB;AAAA;AACrB,gBAAIM,MAAM,EAAV;AACAN,iBAAKO,OAAL,CAAa,aAAK;AACdC,oBAAIA,EAAEL,KAAF,CAAQ,GAAR,CAAJ;AACAG,oBAAIE,EAAE,CAAF,CAAJ,IAAYA,EAAE,CAAF,CAAZ;AACH,aAHD;AAIA;AAAA,mBAAOF;AAAP;AANqB;;AAAA;AAOxB;AAEJ,CArBD;;AAuBA;AACA;AACAhB,OAAOmB,kBAAP,GAA4B,UAASC,IAAT,EAAe;AACvC;AACA,QAAIC,QAAQ;AACR,eAAO,CAAC,IAAD,EAAO,2BAAP,CADC;AAER,kBAAU,CAAC,KAAD,EAAQ,uBAAR,CAFF;AAGR,oBAAY,CAAC,KAAD,EAAQ,eAAR,CAHJ;AAIR,gBAAQ,CAAC,IAAD,EAAO,qBAAP,CAJA;AAKR,oBAAY,CAAC,IAAD,EAAO,qBAAP,CALJ;AAMR,gBAAQ,CAAC,IAAD,EAAO,qBAAP,CANA;AAOR,kBAAU,CAAC,IAAD,EAAO,mBAAP,CAPF;AAQR,iBAAS,CAAC,IAAD,EAAO,mBAAP,CARD;AASR,oBAAY,CAAC,IAAD,EAAO,uBAAP,CATJ;AAUR,kBAAU,CAAC,KAAD,EAAQ,eAAR,CAVF;AAWR,mBAAW,CAAC,MAAD,EAAS,2BAAT,CAXH;AAYR,gBAAQ,CAAC,MAAD,EAAS,2BAAT;AAZA,KAAZ;AAcA,WAAOD,OAAOC,MAAMD,IAAN,EAAY,CAAZ,CAAP,GAAwBC,KAA/B;AACH,CAjBD",
+    "file": "../../../src/common/bootstrap/global.js",
+    "sourcesContent": [
+        "/**\n * this file will be loaded before server started\n * you can define global functions used in controllers, models, templates\n */\n\n/**\n * use global.xxx to define global functions\n * \n * global.fn1 = function(){\n *     \n * }\n */\n\n/**\n * in_array\n * @param stringToSearch\n * @param arrayToSearch\n * @returns {boolean}\n */\n/* global in_array */\nglobal.in_array = function(stringToSearch, arrayToSearch) {\n    for (let s = 0; s < arrayToSearch.length; s++) {\n        let thisEntry = arrayToSearch[s].toString();\n        if (thisEntry == stringToSearch) {\n            return true;\n        }\n    }\n    return false;\n}\n\n\n/**\n * 分析枚举类型配置值 格式 a:名称1,b:名称2\n * @param str\n * @returns {*}\n */\n/* global parse_config_attr */\nglobal.parse_config_attr = function(str) {\n    let strs;\n    if(str == undefined){ return null; }\n    if (str.search(/\\r\\n/ig) > -1) {\n        strs = str.split(\"\\r\\n\");\n    } else if (str.search(/,/ig) > -1) {\n        strs = str.split(\",\");\n    } else if(str.search(/\\n/ig) > -1){\n        strs = str.split(\"\\n\");\n    }else {\n        strs = [str];\n    }\n    if (think.isArray(strs)) {\n        let obj = {}\n        strs.forEach(n => {\n            n = n.split(\":\");\n            obj[n[0]] = n[1];\n        })\n        return obj;\n    }\n\n}\n\n// 获取属性类型信息\n/* global get_attribute_type */\nglobal.get_attribute_type = function(type) {\n    // TODO 可以加入系统配置\n    let _type = {\n        'num': ['数字', 'int(10) unsigned NOT NULL'],\n        'string': ['字符串', 'varchar(255) NOT NULL'],\n        'textarea': ['文本框', 'text NOT NULL'],\n        'date': ['日期', 'bigint(13) NOT NULL'],\n        'datetime': ['时间', 'bigint(13) NOT NULL'],\n        'bool': ['布尔', 'tinyint(2) NOT NULL'],\n        'select': ['枚举', 'char(50) NOT NULL'],\n        'radio': ['单选', 'char(10) NOT NULL'],\n        'checkbox': ['多选', 'varchar(100) NOT NULL'],\n        'editor': ['编辑器', 'text NOT NULL'],\n        'picture': ['上传图片', 'int(10) unsigned NOT NULL'],\n        'file': ['上传附件', 'int(10) unsigned NOT NULL']\n    }\n    return type ? _type[type][0] : _type;\n}"
+    ]
+}

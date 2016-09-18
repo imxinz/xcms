@@ -1,0 +1,17 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/common/config/locale.js"
+    ],
+    "names": [
+        "default",
+        "year",
+        "Date",
+        "getFullYear"
+    ],
+    "mappings": "AAAA;AACA;;;;;kBAGe;AACXA,WAAU,IADC;AAEXC,QAAO,IAAIC,IAAJ,GAAWC,WAAX;AAFI,C",
+    "file": "../../../src/common/config/locale.js",
+    "sourcesContent": [
+        "'use strict';\n/**\n * config\n */\nexport default {\n    default : 'cn',\n    year : new Date().getFullYear()\n}"
+    ]
+}
