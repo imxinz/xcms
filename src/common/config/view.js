@@ -303,22 +303,22 @@ export default {
         },true)
 
         // env.addExtension('tagtest', new mytags(), true);
-        // /**
-        //  * 获取分类标签
-        //  */
-        // env.addExtension('column', new column(), true);
-        // /**
-        //  * 获取导航标签
-        //  */
-        // env.addExtension('channel', new channel(), true);
-        // /**
-        //  * 获取数据标签
-        //  */
-        // env.addExtension('topic', new topic(), true);
-        // /**
-        //  * 获取分类分组
-        //  */
-        // env.addExtension('groups', new groups(), true);
+        /**
+         * 获取分类标签
+         */
+        env.addExtension('column', new column(), true);
+        /**
+         * 获取导航标签
+         */
+        env.addExtension('channel', new channel(), true);
+        /**
+         * 获取数据标签
+         */
+        env.addExtension('topic', new topic(), true);
+        /**
+         * 获取分类分组
+         */
+        env.addExtension('groups', new groups(), true);
       }
     }
   }

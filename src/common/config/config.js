@@ -5,7 +5,7 @@
 export default {
   //key: value
     port : 8361,
-    default_module : 'admin',
+    default_module : 'home',
     route_on: true,
     resource_on: true,
     resource_reg: /^(upload\/|backup\/|static\/|[^\/]+\.(?!js|html)\w+$)/,
