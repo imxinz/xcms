@@ -1,0 +1,78 @@
+<!-- INLINE SEARCH -->
+<div class="inline-search clearfix margin-bottom-30">
+	<form action="/s" method="get" class="widget_search">
+		<input type="search" placeholder="请输入片名/演员" id="s" name="kw" class="serch-input">
+		<button type="submit">
+			<i class="fa fa-search"></i>
+		</button>
+	</form>
+</div>
+<!-- /INLINE SEARCH -->
+<hr>
+{#
+<div class="side-nav margin-bottom-20 margin-top-20">
+	<div class="side-nav-head">
+		<button class="fa fa-bars"></button>
+		<h4>影院追踪</h4>
+	</div>
+	<ul class="list-group list-group-bordered list-group-noicon uppercase">
+
+		<li class="list-group-item"><a href="/column/renwu"><span class="size-11 text-muted pull-right">(22)</span> 人物</a></li>
+
+		<li class="list-group-item"><a href="/column/dianshang"><span class="size-11 text-muted pull-right">(0)</span> 电商</a></li>
+
+		<li class="list-group-item"><a href="/column/touchuang"><span class="size-11 text-muted pull-right">(1)</span> 投创</a></li>
+
+		<li class="list-group-item"><a href="/column/zhinengyingjian"><span class="size-11 text-muted pull-right">(0)</span> 智能硬件</a></li>
+
+		<li class="list-group-item"><a href="/column/hulianwang"><span class="size-11 text-muted pull-right">(2)</span> 互联网＋</a></li>
+
+		<li class="list-group-item"><a href="/column/jutou"><span class="size-11 text-muted pull-right">(19)</span> 巨头</a></li>
+
+	</ul>
+	<!-- /side navigation -->
+</div>
+#}
+
+
+<!-- TAGS -->
+<h3 class="hidden-xs size-16 margin-bottom-20">热门标签</h3>
+<div class="hidden-xs margin-bottom-20">
+	{% for tag in controller.tags %}
+	<a class="tag" href="/s?kw={{tag|safe}}">
+		<span class="txt">{{tag}}</span>
+		<span class="num">{{tag|show_hot}}</span>
+	</a>
+	{% endfor %}
+</div>
+
+
+<hr>
+
+<!-- SOCIAL ICONS -->
+<div class="hidden-xs margin-top-30 margin-bottom-60">
+	<a href="#" class="social-icon social-icon-border social-facebook pull-left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook">
+		<i class="icon-facebook"></i>
+		<i class="icon-facebook"></i>
+	</a>
+
+	<a href="#" class="social-icon social-icon-border social-twitter pull-left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Twitter">
+		<i class="icon-twitter"></i>
+		<i class="icon-twitter"></i>
+	</a>
+
+	<a href="#" class="social-icon social-icon-border social-gplus pull-left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Google plus">
+		<i class="icon-gplus"></i>
+		<i class="icon-gplus"></i>
+	</a>
+
+	<a href="#" class="social-icon social-icon-border social-linkedin pull-left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Linkedin">
+		<i class="icon-linkedin"></i>
+		<i class="icon-linkedin"></i>
+	</a>
+
+	<a href="#" class="social-icon social-icon-border social-rss pull-left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Rss">
+		<i class="icon-rss"></i>
+		<i class="icon-rss"></i>
+	</a>
+</div>

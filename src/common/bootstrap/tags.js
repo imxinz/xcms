@@ -18,7 +18,7 @@ global.channel = function(){
 
         let channel = [
             {key : 'dianying', name : '电影', children : ['爱情','动作','喜剧','情色','科幻','恐怖']},
-            {key : 'dianshi', name : '电视', children : ['欧美','国产','港台','日韩']},
+            {key : 'dianshiju', name : '电视剧', children : ['欧美','国产','港台','日韩']},
             {key : 'dongman', name : '动漫'},
             {key : 'zongyi', name : '综艺'}
         ];

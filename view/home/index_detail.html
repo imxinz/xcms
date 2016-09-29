@@ -1,0 +1,111 @@
+{% extends "./inc/base.html" %}
+{% block content %}
+<section class="page-header dark page-header-xs parallax parallax-2" style="background-image: url('/static/assets/images/demo/thematics/lawyer/slider_bg_4-min.jpg'); background-position: 50% 50px;">
+    <div class="overlay dark-2"><!-- dark overlay [1 to 9 opacity] --></div>
+    <div class="container">
+
+        <!--&lt;!&ndash;<h1>文章测试</h1>&ndash;&gt;-->
+
+        <!--&lt;!&ndash; breadcrumbs &ndash;&gt;-->
+        <!--<ol class="breadcrumb f-14">-->
+            <!--<li><a href="/">首页 </a></li>-->
+
+
+            <!--<li class="active">文章测试</li>-->
+
+
+        <!--</ol>&lt;!&ndash; /breadcrumbs &ndash;&gt;-->
+
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-sm-9">
+                <div class="row">
+                    <!--img-->
+                    <div class="col-lg-3 col-sm-3"><img src="{{data['thumb']}}"/></div>
+                    <div class="col-log-9 col-sm-9">
+                        <!-- /buttons -->
+                        <div class="shop-item-price text-danger">
+                            <h1 class="blog-post-title">{{data['title']}}</h1>
+                        </div>
+
+                        <hr>
+                        <div class="row">
+                            <div class="clearfix margin-bottom-10 col-md-6">
+                                <strong>类型:</strong> {{data['type']}}
+                            </div>
+                            <div class="clearfix margin-bottom-10 col-md-6">
+                                <strong>更新:</strong> {{data['update']|dateformat('Y-m-d H:i:s')}}
+                            </div>
+                            <div class="clearfix margin-bottom-10 col-md-6">
+
+                                <strong>上映时间:</strong> {{data['pdate']}}年
+                            </div>
+                            <div class="clearfix margin-bottom-10 col-md-6">
+
+                                <strong>评分:</strong> {{data['score'].toFixed(1)}}分
+                            </div>
+                            <div class="clearfix margin-bottom-10 col-md-6">
+
+                                <strong>地区:</strong> {{data['region']}}
+                            </div>
+                            <div class="clearfix margin-bottom-10 col-md-12">
+                                <strong>主演:</strong> <span class="font-lato">{{data['actor']}}</span>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <a href="#download" class="btn btn-3d btn-reveal btn-teal">
+                            <i class="fa fa-download"></i>
+                            <span>极速下载</span>
+                        </a>
+                    </div>
+                </div>
+
+            <!-- LEFT -->
+                <div id="contentcmswing">
+                    <div class="tab-content">
+                        <div class="tab-pane fade  in active" id="page1">
+                            {{data['desc']}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="heading-title heading-dotted text-center margin-bottom-10">
+                    <h4 id="download"><span>[下载地址]</span></h4>
+                </div>
+
+                <div class="tab-content table-bordered" style="padding: 0; margin-bottom: 20px; margin-top: -1px">
+                    <table class="table table-hover  m-b-none" style="margin-top: -1px">
+                        <tbody>
+                        {% for item in data['downloads'] %}
+                        <tr>
+                            <td class="text-left">
+                                <a href="#">{{item['sname']|get_movie_name}}</a>
+                            </td>
+                            <td style="width:420px" class="text-right">
+                                {% for ditem in JSON.parse(item['durls']) %}
+                                <a href="{{ditem['durl']}}" class="btn btn-info btn-xs relative">{{ditem['dname']}}</a>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <!-- RIGHT -->
+
+            <div class="col-md-3 col-sm-3">
+                {%include './inc/side.html'%}
+            </div>
+        </div>
+
+
+    </div>
+</section>
+{% endblock %}

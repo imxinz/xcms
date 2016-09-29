@@ -219,6 +219,13 @@ export default {
           callback(null, data);
         }, true)
         /**
+         * 根据资源名称返回资源实际名称
+         */
+        env.addFilter('get_movie_name', async(name, callback)=> {
+          let n = decodeURIComponent(name).match(/\|(\S+)\.mp4\|/);
+          callback(null, (n && n[1]).replace('file|',''));
+        }, true)
+        /**
          * 根据栏目id获取栏目信息
          *
          */
@@ -229,6 +236,9 @@ export default {
         //价格格式化
         env.addFilter("get_price_format", function (price, type) {
           return get_price_format(price, type);
+        })
+        env.addFilter("show_hot", function (tag) {
+          return Math.floor(Math.random() * 20);
         })
         /**
          * is_weixin

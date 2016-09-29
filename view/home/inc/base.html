@@ -10,7 +10,7 @@
 	<title>{{controller.meta_title}} | {{controller.setup.WEB_SITE_TITLE}}</title>
 	<meta name="keywords" content="{{controller.keywords}}" />
 	<meta name="description" content="{{controller.description}}" />
-	<meta name="sitename" content="{{controller.sitename}}" />
+	<meta name="sitename" content="{{controller.setup.WEB_SITE_NAME}}" />
 	{%if controller.setup.QQ_VALIDATION%}
 	<!--qq互联网站验证-->
 	{{controller.setup.QQ_VALIDATION|safe}}
@@ -45,32 +45,10 @@
 	{%endif%}
 </head>
 
-<!--
-		AVAILABLE BODY CLASSES:
-
-		smoothscroll 			= create a browser smooth scroll
-		enable-animation		= enable WOW animations
-
-		bg-grey					= grey background
-		grain-grey				= grey grain background
-		grain-blue				= blue grain background
-		grain-green				= green grain background
-		grain-blue				= blue grain background
-		grain-orange			= orange grain background
-		grain-yellow			= yellow grain background
-
-		boxed 					= boxed layout
-		pattern1 ... patern11	= pattern background
-		menu-vertical-hide		= hidden, open on click
-
-		BACKGROUND IMAGE [together with .boxed class]
-		data-background="assets/images/boxed_background/1.jpg"
-	-->
-
 <body class="smoothscroll enable-animation">
 
 	<!-- SLIDE TOP -->
-	{% include "./slidetop.html" %}
+	{# include "./slidetop.html" #}
 	<!-- /SLIDE TOP -->
 
 
@@ -96,6 +74,7 @@
 						<li></li>
 					</ul>
 					&copy; <script>document.write(new Date().getFullYear())</script> {{controller.setup.WEB_SITE_DOMAIN}}  版权所有 <!--{{controller.setup.WEB_SITE_TITLE}}--> <a href="http://www.miitbeian.gov.cn/" target="_blank">{{controller.setup.WEB_SITE_ICP}}</a>
+					<script>var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260385623'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/stat.php%3Fid%3D1260385623%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
 				</div>
 			</div>
 		</footer>

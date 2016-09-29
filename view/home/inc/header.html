@@ -18,11 +18,11 @@
 						<i class="fa fa-search"></i>
 					</a>
 					<div class="search-box">
-						<form action="/" method="get">
+						<form action="/s" method="get">
 							<div class="input-group">
-								<input type="text" name="src" placeholder="Search" class="form-control" />
+								<input type="text" name="kw" placeholder="请输入片名/演员" class="form-control" />
 								<span class="input-group-btn">
-									<button class="btn btn-primary" type="submit">Search</button>
+									<button class="btn btn-primary" type="submit">搜索</button>
 								</span>
 							</div>
 						</form>
@@ -35,7 +35,7 @@
 
 			<!-- Logo -->
 			<a class="logo pull-left" href="/">
-				<img src="/static/assets/images/logo_dark.png" alt="" />
+				<img src="/static/assets/images/logo.gif" alt="" />
 			</a>
 
 			<div class="navbar-collapse pull-right nav-main-collapse collapse submenu-dark">
@@ -44,7 +44,7 @@
 						{% channel data='channel'%}
 						{% for val in channel%}
 						<li class="{% if category.id|in_Array(val.on) %}active{% endif %}">
-							<a href="/{{val.key}}" {%if val.target ==1%} target="_blank"{%endif%}>{{val.name}}</a>
+							<a href="/category/{{val.key}}" {%if val.target ==1%} target="_blank"{%endif%}>{{val.name}}</a>
 						</li>
 						{% endfor%}
 					</ul>

@@ -21,6 +21,7 @@ export default class extends think.controller.base {
     async __before() {
         //登陆验证
         let is_login = await this.islogin();
+        console.log('24',is_login);
         if (!is_login) {
            return this.redirect('/admin/public/signin');
         }
@@ -29,7 +30,9 @@ export default class extends think.controller.base {
         this.user = await this.session('userInfo');
         this.assign("userinfo", this.user);
         //网站配置
-        this.setup = {}; //await this.model("setup").getset();
+        this.setup = {
+            GEETEST_IS_ADMLOGIN : false
+        }; //await this.model("setup").getset();
         // console.log(this.setup);
         //后台菜单
         // this.adminmenu = await this.model('menu').adminmenu();
@@ -40,9 +43,9 @@ export default class extends think.controller.base {
          * 权限验证超级管理员
          */
         //let url = `${this.http.module}/${this.http.controller}/${think.sep+this.http.action}`;
-        //console.log(url);
+        
         let is_admin = await this.is_admin();
-        //console.log(is_admin);
+
         let url = `${this.http.module}/${this.http.controller}/${this.http.action}`;
         if (!is_admin) {
             let Auth = think.adapter("auth", "rbac");
@@ -71,10 +74,11 @@ export default class extends think.controller.base {
      * @returns {boolean}
      */
     async islogin() {
+        // return 1;
         //判断是否登录
         let user = await this.session('userInfo');
         let res = think.isEmpty(user) ? false : user.uid;
-        return 1;//res;
+        return res;
 
     }
 
@@ -84,10 +88,9 @@ export default class extends think.controller.base {
      * @returns {*|boolean}
      */
     async is_admin(uid) {
-        return 1;
         uid = uid || null;
         uid = think.isEmpty(uid) ? await this.islogin() : uid;
-        return uid && (in_array(parseInt(uid), this.config('user_administrator')));
+        return uid &&  (uid == 1);//(in_array(parseInt(uid), this.config('user_administrator')));
     }
     /**
      * 对数据表中的单行或多行记录执行修改 GET参数id为数字或逗号分隔的数字
