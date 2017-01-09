@@ -1,0 +1,163 @@
+<div class="row">
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <form class="navbar-form navbar-left" role="form">
+                <div class="form-group">
+                    <a href="javascript:;" class="btn btn-default" data-action="lastPoint">最新位置</a>
+                </div>
+                <div class="form-group" style="width:280px;display:inline-block;margin-left:10px;">
+                    <div class="input-group">
+                        <div class="input-group-addon">按时间</div>
+                        <input type="text" name="qtime" class="form-control time" placeholder="请选择时间" style="width:50%;">
+                        <a href="javascript:;" class="btn btn-info" data-action="queryPoint" style="width:49%;float:left;margin-left:-1px;border-radius:0 2px 2px 0;border-left:none;">查看轨迹</a>
+                    </div>
+                </div>
+                <!--<div class="form-group" style="width:466px;display:inline-block;margin-left:10px;">-->
+                    <!--<div class="input-group">-->
+                        <!--<div class="input-group-addon">按时间</div>-->
+                        <!--<input type="text" name="stime" class="form-control time" placeholder="请选择开始时间" style="width:125px;">-->
+                        <!--<div class="input-group-addon" style="border-radius:0;margin-left:-1px;border-left:none;border-right:none;">至</div>-->
+                        <!--<input type="text" name="etime" class="form-control time" placeholder="请选择结束时间" style="width:125px;">-->
+                        <!--<a href="javascript:;" class="btn btn-info" data-action="queryPath" style="width:110px;float:left;margin-left:-1px;border-radius:0 2px 2px 0;border-left:none;">查看轨迹</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <input type="hidden" name="id" value="{{data['id']}}"/>
+                <input type="hidden" name="authcode" value="{{data['authcode']}}"/>
+                <input type="hidden" name="imei" value="{{data['imei']}}"/>
+            </form>
+        </div>
+    </nav>
+    <div class="col-md-12">
+        <div id="output-map"></div>
+    </div>
+</div>
+<script>
+    (function() {
+        var map = null;
+        var controller = {
+            lastPoint : function(){
+                monitorRequest({
+                    time : 'lasttime'
+                }, function(ret){
+                    if(ret['errno'] == 0) {
+                        renderMarkers([ret['data']]);
+                    }
+                }, function(err){
+
+                });
+            },
+            queryPoint : function(){
+                monitorRequest({
+                    time : $('input[name=qtime]').val()
+                }, function(ret){
+                    if(ret['errno'] == 0){
+                        renderPolyLine(ret['data']);
+                    }
+                }, function(err){
+
+                });
+            },
+            queryPath : function(){
+                let st = $.trim($('input[name=stime]').val());
+                let et = $.trim($('input[name=etime]').val());
+
+                if(st == '' || et == ''){
+                    toastr.error('请输入查询时间');
+                    return false;
+                }
+
+                monitorRequest({
+                    time : [st,et].join(',')
+                }, function(ret){
+
+                }, function(err){
+
+                });
+            }
+        };
+
+        function monitorRequest(params, accept, reject){
+            params['imei'] = $('input[name=imei]').val();
+
+            if(!params['time'] || !params['imei']){
+                toastr.error('参数错误');
+                return false;
+            }
+
+            $.ajax({
+                url : '/admin/monitor/findpois',
+                type : 'get',
+                data : params,
+                dataType : 'json',
+                success : function(res){
+                    typeof accept == 'function' && accept(res);
+                },
+                error : function(err){
+                    typeof reject == 'function' && reject(res);
+                }
+            })
+        }
+
+        function renderMarkers(pois){
+            for(var i=0,j=pois.length;i<j;i++) {
+                let p = JSON.parse(JSON.parse(pois[i]['poi']));
+                let time = getFormattedDate(pois[i]['createtime']);
+
+                let point = new BMap.Point(p['lng'], p['lat']);
+//                let point = new BMap.Point(116.298421,40.053157);
+                let marker = new BMap.Marker(point);
+                let geoc = new BMap.Geocoder();
+
+                geoc.getLocation(point, function(rs){
+                    let addComp = rs.addressComponents;
+                    let address = rs['address'] +'【'+time+'】';  //addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
+                    let label = new BMap.Label(address, {offset: new BMap.Size(20,-10)});
+
+                    marker.setLabel(label);
+                    map.addOverlay(marker);
+                    map.addControl(new BMap.NavigationControl());
+                    map.centerAndZoom(point, 18);
+                });
+            }
+        }
+
+        function renderPolyLine(pois){
+            let lines = [];
+            for(var i=0,j=pois.length;i<j;i++) {
+                let p = JSON.parse(JSON.parse(pois[i]['poi']));
+                lines.push(new BMap.Point(p['lng'], p['lat']));
+            }
+            let polyline = new BMap.Polyline(lines,{strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5});
+            map.clearOverlays();
+            map.addOverlay(polyline);
+        }
+
+        function getFormattedDate(d) {
+            var date = new Date(d);
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear().toString();
+            var hour = date.getHours();
+            var minutes = date.getMinutes();
+
+            return [year,month,day].join('-') +' '+ [hour, minutes].join(':');
+        }
+
+        function initPageEvent() {
+            $('[data-action]').bind('click', function(){
+               var action = $(this).attr('data-action');
+                controller[action]();
+            });
+        }
+
+        function init() {
+            map = new BMap.Map("output-map");
+            map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
+            map.setCurrentCity("北京");
+            initPageEvent();
+            controller.lastPoint();
+        };
+
+        setTimeout(init, 500);
+    })();
+</script>

@@ -1,0 +1,25 @@
+<div class="modal-dialog" id="output-{{data['name']}}">
+    <div class="modal-content">
+        <div class="modal-header">
+            <b>{{data['header']|safe}}</b>
+        </div>
+        {% if data['type'] == 'form' %}
+        <form class="form-confirm form-horizontal" method="post" action="{{data['action']}}">
+        {% endif %}
+        <div class="modal-body">
+            {{data['html']|safe}}
+        </div>
+        <div class="modal-footer">
+            {% for button in data['buttons'] %}
+            {% if button['type'] == 'submit' %}
+            <a href="javascript:;" class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-confirm">{{button['title']}}</a>
+            {% else %}
+            <a href="javascript:;" class="btn btn-default" data-dismiss="modal">{{button['title']}}</a>
+            {% endif %}
+            {% endfor%}
+        </div>
+        {% if data['type'] == 'form' %}
+        </form>
+        {% endif %}
+    </div>
+</div>

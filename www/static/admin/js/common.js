@@ -7,8 +7,6 @@
  * <a href="#" class="confirm ajax-get text-info" >删除</a></td>
  *
  */
-
-
 $(document).on('click','.ajax-get',function(){
     var target;
     var that = this;
@@ -74,11 +72,11 @@ $(document).on('click','.ajax-post',function(){
         }else if ( form.get(0).nodeName=='FORM' ){
 
             //表单验证
-            if($('[data-validate="parsley"]')){
-            $('[data-validate="parsley"]').parsley().validate();
-            if(true !== $('[data-validate="parsley"]').parsley().isValid()){
-                return false;
-            }
+            if($('[data-validate="parsley"]').length > 0){
+                $('[data-validate="parsley"]').parsley().validate();
+                if(true !== $('[data-validate="parsley"]').parsley().isValid()){
+                    return false;
+                }
             }
             if ( $(this).hasClass('confirm') ) {
                 if(!confirm('确认要执行该操作吗?')){
@@ -171,4 +169,15 @@ $(document).on('click','.ajax-post',function(){
     }
     return false;
 });
+
+// if($('.time').length > 0) {
+    $('body').on('focus', '.time', function(){
+        $(this).datetimepicker({
+            format: 'yyyy-mm-dd hh:ii',
+            language: "zh-CN",
+            minView: 2,
+            autoclose: true
+        });
+    });
+// }
 

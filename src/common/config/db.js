@@ -9,7 +9,7 @@ export default {
     mysql: {
       host: '127.0.0.1',
       port: '3306',
-      database: 'xcms',
+      database: 'db_location',
       user: 'root',
       password: 'xinz1234',
       prefix: 'sg_',

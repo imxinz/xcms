@@ -301,6 +301,10 @@ export default {
             return '';
           }
         })
+        env.addFilter('raw', (str)=>{
+          console.log(str);
+          return str.replace(/&gt;/g, "<");
+        })
         /**
          * 获取文件信息
          * @param file_id 文件id

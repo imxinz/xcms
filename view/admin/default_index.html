@@ -1,0 +1,96 @@
+{% extends "./inc/base.html" %}
+{% block content %}
+<section class="vbox">
+    <header class="header bg-light dk">
+        <p>{{controller.meta_title}}管理</p>
+    </header>
+    <section class="scrollable wrapper">
+        <section class="panel panel-default">
+            <header class="panel-heading">
+                {{controller.meta_title}} - 列表
+                <i data-title="" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>
+            </header>
+        </section>
+        <div class="row wrapper">
+
+            <div class="col-sm-9 m-b-xs">
+                <div class="">
+                    <a class="btn btn-sm btn-info" href="/admin/{{controller.model_name}}/add">新增</a>
+                    <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids"  href="/admin/{{controller.model_name}}/del">删除</a>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="input-group pull-right search-form">
+                    <input type="text" class="input-sm form-control" name="{{model.search_key|default('title', true)}}" placeholder="请输入关键字" value="{{http.get('title')}}">
+                      <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" type="button" id="search" url="/admin/cms/list/model/{{model.name}}">搜索</button>
+                      </span>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped b-t b-light">
+                <thead>
+                <tr>
+                    <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
+                    {% for field in list_grids %}
+                    <th >{{field.title}}</th>
+                    {% endfor %}
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for data in list_data %}
+                <tr>
+                    <td>
+                        <label class="checkbox m-n i-checks">
+                        <input class="ids" type="checkbox" name="ids" value="{{data.id}}"><i></i>
+                        </label>
+                    </td>
+                    {% for grid in list_grids %}
+                    <td>
+                        {% if grid['field'][0] == 'status' %}
+                            {{data|get_list_field(grid,http.controller) }}
+                        {% elif grid['field'][0] == 'bindHostIds'%}
+                            {{data['name']}}
+                        {% else %}
+                            {{data|get_list_field(grid,http.controller)| safe}}
+                        {% endif %}
+                    </td>
+                    {% endfor %}
+                    <td>
+                        <div class="btn-group">
+                            <a href="/admin/{{controller.model_name}}/edit?id={{data.id}}" class="text-info">编辑</a>
+                        </div>
+                        <div class="btn-group" style="margin-left:5px;">
+                            <button data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle"><i class="fa fa-cog"></i> 处理 <span class="caret"></span></button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="/admin/{{controller.model_name}}/approve?id={{data.id}}&status=1" data-toggle="ajaxModal"><i class="fa fa-rotate-right"></i> 通过</a></li>
+                                <li><a href="/admin/{{controller.model_name}}/approve?id={{data.id}}&status=0" data-toggle="ajaxModal"><i class="fa fa-rotate-left"></i> 驳回</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="{{list_grids|length + 2}}"><div class="alert alert-warning alert-block">
+                    <button data-dismiss="alert" class="close" type="button">×</button>
+                    <p>暂无数据</p>
+                </div></td></tr>
+
+                {% endfor %}
+
+
+                </tbody>
+            </table>
+        </div>
+        <footer class="panel-footer">
+            <div class="row">
+                <div class="col-sm-12 text-right text-center-xs">
+                    {{pagerData | safe}}
+                </div>
+            </div>
+        </footer>
+    </section>
+</section>
+
+{% endblock %}

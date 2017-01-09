@@ -1,0 +1,90 @@
+{% extends "./inc/base.html" %}
+{% block content %}
+<section class="vbox">
+    <header class="header bg-light dk">
+        <p>{{controller.meta_title}}</p>
+    </header>
+    <section class="scrollable wrapper">
+        <section class="panel panel-default">
+            <header class="panel-heading">
+                {{controller.meta_title}} - {{controller.action_name|show_status_op}}
+                <i data-title="" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>
+            </header>
+        </section>
+        <div class="row">
+
+            <div class="col-lg-12">
+                <section class="panel panel-default">
+                    <div class="panel-body">
+                        <form id="ajaxForm" action="/admin/{{controller.model_name}}/{{controller.action_name}}" class="form-horizontal" method="post" data-validate="parsley">
+                            <div class="tab-content">
+                                <div id="tab1" class="tab-pane fade active in">
+                                    {% for field in list_grids %}
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">{{field.title}}</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    {% if field.key == 'utype' %}
+                                                        <select class="form-control" data-required="true" name="{{field.key}}">
+                                                            {% for opt in USER_TYPES['extra'] %}
+                                                            <option value="{{opt['value']}}" {{'selected' if formdata[field.key] == opt['value'] else ''}}>{{opt['name']}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    {% elseif field.key == 'branchId' %}
+                                                        <select class="form-control" data-required="true" name="{{field.key}}">
+                                                            {% for opt in allBranches %}
+                                                            <option value="{{opt['id']}}" {{'selected' if formdata[field.key] == opt['id'] else ''}}>{{opt['bname']}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    {% elseif field.key == 'status' %}
+                                                    <select class="form-control" data-required="true" name="{{field.key}}">
+                                                        {% for opt in USER_STATUS['extra'] %}
+                                                        <option value="{{opt['value']}}" {{'selected' if formdata[field.key] == opt['value'] else ''}}>{{opt['name']}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    {% else %}
+                                                        {% if field.type != 'textarea' %}
+                                                        <input name="{{field.key}}" type="text" data-required="true" value="{{formdata[field.key]}}" class="form-control">
+                                                        {% else %}
+                                                        <textarea name="{{field.key}}" data-required="true" class="form-control">{{formdata[field.key]}}</textarea>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span class="help-block m-b-none text-muted">
+                                                        <!--<i class="fa fa-info-circle text-info"></i> 输入行为标识 英文字母.-->
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    {% if controller.action_name == 'edit' %}
+                                    <input type="hidden" name="id" value="{{formdata['id']}}"/>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group form-submit">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button type="submit" target-form="form-horizontal" class="btn btn-primary ajax-post">提交</button>
+                                    <button type="submit" class="btn btn-default" onclick="javascript:history.back(-1);return false;">返回</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+            </div>
+
+        </div>
+    </section>
+</section>
+
+{% endblock %}
+
+{% block script%}
+<script src="/static/admin/js/parsley/parsley.min.js"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js"></script>
+
+{% endblock%}

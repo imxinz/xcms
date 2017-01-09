@@ -19,54 +19,39 @@ export default class extends think.controller.base {
     }
 
     async __before() {
+        await this.cookie('userInfo');
+        console.log('base.before', await this.session('test'));
         //登陆验证
         let is_login = await this.islogin();
-        console.log('24',is_login);
-        if (!is_login) {
-           return this.redirect('/admin/public/signin');
+        let token = this.post('token') || this.get('token');
+
+        if (!think.isEmpty(token)) {
+            return true;
         }
+        console.log('is_login', is_login);
+
+        if (!is_login) {
+            return this.redirect('/admin/public/signin');
+        }
+
 
         //用户信息
         this.user = await this.session('userInfo');
         this.assign("userinfo", this.user);
         //网站配置
-        this.setup = {
-            GEETEST_IS_ADMLOGIN : false
-        }; //await this.model("setup").getset();
-        // console.log(this.setup);
-        //后台菜单
-        // this.adminmenu = await this.model('menu').adminmenu();
+        this.setup = await this.model("setup").getset();
+        this.BRANCH_STATUS = await this.model('setup').query('BRANCH_STATUS');
+        this.USER_TYPES = await this.model('setup').query('USER_TYPES');
+        this.USER_STATUS = await this.model('setup').query('USER_STATUS');
+
         this.assign("setup", this.setup);
-        //菜单当前状态
-
-        /**
-         * 权限验证超级管理员
-         */
-        //let url = `${this.http.module}/${this.http.controller}/${think.sep+this.http.action}`;
-        
-        let is_admin = await this.is_admin();
-
-        let url = `${this.http.module}/${this.http.controller}/${this.http.action}`;
-        if (!is_admin) {
-            let Auth = think.adapter("auth", "rbac");
-            let auth = new Auth(this.user.uid);
-            let res = await auth.check(url);
-            if (!res) {
-                //return this.fail('未授权访问!');
-                this.http.error = new Error('未授权访问!');
-                return think.statusAction(702, this.http);
-            }
-        }
-
-        //console.log(this.user.uid);
-        //this.active = this.http.url.slice(1),
-            // console.log(this.active);
-            this.active =this.http.module+"/"+this.http.controller+"/"+this.http.action;
-            think.log(this.active);
-            this.assign({
-                "navxs": false,
-                "bg": "bg-black"
-            })
+        this.assign({
+            BRANCH_STATUS: this.BRANCH_STATUS,
+            USER_TYPES: this.USER_TYPES,
+            USER_STATUS: this.USER_STATUS,
+            "navxs": false,
+            "bg": "bg-black"
+        });
     }
 
     /**
@@ -77,7 +62,8 @@ export default class extends think.controller.base {
         // return 1;
         //判断是否登录
         let user = await this.session('userInfo');
-        let res = think.isEmpty(user) ? false : user.uid;
+        console.log('user', user);
+        let res = think.isEmpty(user) ? false : user.id;
         return res;
 
     }
@@ -341,6 +327,20 @@ export default class extends think.controller.base {
             //console.log(222)
             return list;
         }
+    }
+
+    async alert(message){
+        let content = await this.fetch(think.APP_PATH+'/../view/admin/inc/dialog.html',{
+            data : {
+                name : 'dialog-alert-error',
+                type : 'alert',
+                header : '错误提示',
+                action : '#',
+                html : '<p class="text-danger">'+ message +'</p>',
+                buttons : [{type: 'cancel', title: '取消'}]
+            }
+        });
+        this.end(content);
     }
 
 }
